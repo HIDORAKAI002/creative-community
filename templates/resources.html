@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+  <html lang='en'>
+
+<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+	<meta charset='UTF-8'>
+    <meta name="viewport" content='width=device-width, initial-scale=1.0'>
+    <title>Resource Vault - Creative Community</title>
+	<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link
+      href='https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;600;700&display=swap'
+rel="stylesheet">
+	<link rel='stylesheet' href="/creative-community/static/css/main.css?v=1774418661">
+    <style>
+          .vault-header {
+              padding: var(--space-xl) 0;
+			text-align: center;
+            border-bottom: 2px solid var(--border-subtle);
+			background: rgba(10, 10, 10, 0.9);
+			margin-bottom: var(--space-xl);
+			position: relative;
+        }
+          .vault-container {
+            max-width: 1200px;
+              margin: 0 auto;
+			padding: 0 var(--space-l) var(--space-xxxl);
+	}
+      .submit-section {
+			background: rgba(0, 255, 249, 0.05);
+			border: 2px solid var(--primary-cyan);
+            border-radius: 8px;
+			padding: var(--space-l);
+			margin-bottom: var(--space-xl);
+            display: none;
+            /* Shown if logged in */
+        }
+        .cards-grid {
+            display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+			gap: var(--space-m);
+      }
+        .resource-card {
+            background: rgba(15, 15, 15, 0.8);
+                border: 2px solid var(--border-subtle);
+            border-radius: 8px;
+			padding: var(--space-m);
+			position: relative;
+          transition: transform 0.2s, box-shadow 0.2s;
+			display: flex;
+ flex-direction: column;
+          gap: 10px;
+            min-height: 180px;
+        }
+
+        .resource-card:hover {
+          transform: translateY(-5px);
+            box-shadow: 4px 4px 0px var(--accent-purple);
+            border-color: var(--accent-purple);
+		}
+		.resource-card.pinned {
+            border-color: var(--alert-orange);
+	box-shadow: 0 0 15px rgba(255, 62, 175, 0.2);
+		}
+        .pinned-badge {
+            position: absolute;
+			top: -12px;
+     right: 15px;
+            background: var(--alert-orange);
+            color: #000;
+			font-family: var(--font-header);
+            font-size: 0.6rem;
+              padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .gh-avatar {
+              width: 40px;
+          height: 40px;
+ border-radius: 50%;
+		border: 1px solid var(--border-subtle);
+	}
+        .gh-stats {
+			display: flex;
+ gap: 15px;
+              font-size: 0.8rem;
+              color: var(--text-muted);
+			margin-top: auto;
+			padding-top: 10px;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+          }
+        .gh-stats span {
+          display: flex;
+          align-items: center;
+			gap: 5px;
+		}
+          .submit-control {
+			display: flex;
+            gap: 10px;
+			flex-wrap: wrap;
+}
+		.submit-control input {
+            flex: 1;
+            min-width: 200px;
+			padding: 12px;
+              background: #000;
+            border: 2px solid var(--border-subtle);
+			color: #fff;
+            font-family: var(--font-body);
+        }
+
+		.submit-control input:focus {
+			outline: none;
+            border-color: var(--primary-cyan);
+		}
+	</style>
+	<link rel='icon' type='image/png' href="/creative-community/static/favicon.png">
+	</head>
+<body>
+    
+<div class="noise-overlay"></div>
+	<div class="grid-bg"></div>
+    <header class='vault-header'>
+		<h1 class="hero-title glitch" data-text='Resource Vault' style='font-size: 2.5rem;'>Resource Vault</h1>
+		<p class="hero-subtitle" style='font-size: 1rem; margin-top: 10px;'>Community Code & Assets Directory</p>
+    <div style="margin-top: 20px;">
+			<a href='/creative-community/' class="btn-secondary">⟵ Return to Hub</a>
+      </div>
+    </header>
+        <div class='vault-container'>
+        <div class='submit-section' id='submit-section'>
+			<h3 class='ac-title' style='margin-bottom: 15px; color: var(--primary-cyan);'>Contribute to the Vault</h3>
+            <p style='font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px;'>Paste a GitHub Repository link
+                to automatically pull code statistics, or any other asset URL.</p>
+			<div class='submit-control'>
+				<input type='url' id="res-url" placeholder='Paste GitHub Repo URL or Asset Link...' required>
+                <input type='text' id='res-desc' placeholder="Brief description (optional)">
+                <button id='submit-res-btn' class="btn-primary"
+                    style='background: var(--primary-cyan); color: #000; box-shadow: 4px 4px 0px #fff; border-color: #fff;'>UPLOAD_LINK</button>
+			</div>
+            <p id='submit-msg'
+                style="color: var(--primary-cyan); font-size: 0.8rem; margin-top: 10px; display: none; font-family: 'Courier New', monospace;">
+            </p>
+		</div>
+		<div class="cards-grid" id="resources-grid">
+
+			<div style='color: var(--text-muted); font-family: var(--font-body);'>Decrypting resources...</div>
+	</div>
+    </div>
+	<script src="/creative-community/static/js/fluid-cursor.js?v=1774418661"></script>
+	<script>
+        document.addEventListener('DOMContentLoaded', () => {
+			const submitSection = document.getElementById('submit-section');
+          const submitBtn = document.getElementById('submit-res-btn');
+            const urlInput = document.getElementById('res-url');
+			const descInput = document.getElementById('res-desc');
+			const msgNode = document.getElementById('submit-msg');
+            const grid = document.getElementById('resources-grid');
+              let user = null;
+	let isOgAdmin = false;
+			let isAdmin = false;
+			const userStr = localStorage.getItem('cc_logged_in_user');
+            if (userStr) {
+                  user = JSON.parse(userStr);
+                // The 'isAdmin' status is part of the synced user object saved during login
+				isOgAdmin = user.clgEmail && user.clgEmail.toLowerCase().startsWith('24bq1a05j5@');
+                isAdmin = user.isAdmin || isOgAdmin;
+				submitSection.style.display = 'block';
+     }
+            async function loadResources() {
+              try {
+                const res = await fetch('/creative-community/api/resources');
+                      if (!res.ok) throw new Error("Network error");
+                    const data = await res.json();
+                    renderResources(data);
+				} catch (e) {
+   grid.innerHTML = `<div style='color: var(--alert-orange);'>Error accessing secure vault: ${e.message}</div>`;
+                }
+            }
+
+            function renderResources(items) {
+                if (!items || items.length === 0) {
+					grid.innerHTML = `<div style='color: var(--text-muted);'>The vault is currently empty.</div>`;
+                    return;
+                  }
+				grid.innerHTML = '';
+              items.forEach(r => {
+                    const pinnedClass = r.is_pinned ? 'pinned' : '';
+					const pinnedBadge = r.is_pinned ? `<div class='pinned-badge'>📌 PINNED</div>` : '';
+                    let adminControls = '';
+					if (isAdmin) {
+    adminControls = `
+                            <div style="position: absolute; bottom: 10px; right: 10px; display: flex; gap: 5px; background: rgba(0,0,0,0.8); padding: 5px; border-radius: 4px; border: 1px solid var(--border-subtle);">
+                              <button onclick="pinResource('${r.id}')" style='background:none; border:none; cursor:pointer; color: var(--alert-orange); font-size: 1rem;' title='Pin/Unpin'>📌</button>
+                              <button onclick="delResource('${r.id}')" style='background:none; border:none; cursor:pointer; color: var(--alert-orange); font-size: 1rem;' title='Delete'>🗑️</button>
+                            </div>
+                        `;
+                  }
+                    let contentHtml = '';
+                      if (r.type === 'github') {
+						contentHtml = `
+                            <div style='display: flex; align-items: center; gap: 10px;'>
+                                ${r.stats.avatar ? `<img src='${r.stats.avatar}' class='gh-avatar'>` : '<span style='font-size: 1.5rem;'>🗄️</span>'}
+								<a href='${r.url}' target='_blank' style='color: var(--primary-cyan); font-family: var(--font-header); font-size: 0.8rem; text-decoration: none; word-break: break-all;'>${r.title}</a>
+                              </div>
+                            <p style="font-size: 0.85rem; color: #fff; line-height: 1.5; margin-top: 10px;">${r.description || 'No description provided.'}</p>
+                              <div class='gh-stats'>
+                              <span>⭐ ${r.stats.stars || 0}</span>
+								<span>🍴 ${r.stats.forks || 0}</span>
+		<span style='color: var(--primary-cyan);'>${r.stats.language || 'Code'}</span>
+		<span style='color: var(--accent-purple); margin-left: auto; font-size: 0.7rem;'>Added by: ${r.author.split(' ')[0]}</span>
+                            </div>
+                          `;
+					} else {
+						contentHtml = `
+                            <div style='display: flex; align-items: center; gap: 10px;'>
+                                <span style='font-size: 1.5rem;'>🔗</span>
+                                <a href="${r.url}" target='_blank' style="color: var(--primary-cyan); font-family: var(--font-header); font-size: 0.8rem; text-decoration: none; word-break: break-all;">${r.title}</a>
+							</div>
+                              <p style='font-size: 0.85rem; color: #fff; line-height: 1.5; margin-top: 10px;'>${r.description || 'No description provided.'}</p>
+							<div class="gh-stats">
+                                  <span style="color: var(--accent-purple); margin-left: auto; font-size: 0.7rem;">Added by: ${r.author.split(' ')[0]}</span>
+							</div>
+						`;
+					}
+
+					grid.innerHTML += `
+                    <div class='resource-card ${pinnedClass}'>
+                            ${pinnedBadge}
+                          ${contentHtml}
+	${adminControls}
+                          </div>
+					`;
+                });
+          }
+              submitBtn.addEventListener('click', async () => {
+				const url = urlInput.value.trim();
+				const desc = descInput.value.trim();
+                if (!url) {
+                  alert('Please enter a valid URL.');
+                    return;
+                  }
+
+			submitBtn.textContent = 'TRANSMITTING...';
+  submitBtn.disabled = true;
+                try {
+                    const res = await fetch('/creative-community/api/resources/add', {
+						method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+                            url: url,
+                          description: desc,
+							author: user.name,
+                            author_email: user.clgEmail
+                        })
+					});
+					const result = await res.json();
+                  if (result.success) {
+                        urlInput.value = '';
+                      descInput.value = '';
+                        msgNode.textContent = "[OK] Data uploaded successfully.";
+                        msgNode.style.display = 'block';
+                      setTimeout(() => msgNode.style.display = 'none', 3000);
+                        loadResources();
+                      } else {
+                        alert(result.error || "Failed to add resource");
+                    }
+              } catch (e) {
+					alert("Error: " + e.message);
+                }
+				submitBtn.textContent = 'UPLOAD_LINK';
+                  submitBtn.disabled = false;
+            });
+            window.pinResource = async (id) => {
+                  await fetch('/creative-community/admin/resources/pin', {
+                  method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ id })
+			});
+				loadResources();
+	};
+            window.delResource = async (id) => {
+				if (confirm("Secure delete this resource?")) {
+                    await fetch('/creative-community/admin/resources/delete', {
+                        method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id })
+					});
+                      loadResources();
+				}
+			};
+			loadResources();
+          });
+	</script>
+	</body>
+</html>

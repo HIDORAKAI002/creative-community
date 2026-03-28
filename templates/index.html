@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Creative Community @ VVITU — Where Pixels Meet Purpose</title>
+    <meta name='description'
+        content="Creative Community is VVITU's premier student organization combining gaming, creative coding, and interactive learning. Build real skills through Minecraft architecture, esports, and collaborative design.">
+    <meta property='og:title' content='Creative Community @ VVITU'>
+	<meta property="og:description"
+        content='Gaming meets education. Build real-world skills through Minecraft architecture, esports strategy, and creative coding workshops.'>
+<meta property='og:type' content='website'>
+  <meta name="theme-color" content='#0a0a0a'>
+    <link rel='preconnect' href='https://fonts.googleapis.com'>
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+      <link
+        href='https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;600;700&display=swap'
+	rel='stylesheet'>
+
+      <link rel='stylesheet' href="/creative-community/static/css/main.css?v=1774418661">
+	<link rel='icon' type='image/png' href="/creative-community/static/favicon.png">
+  </head>
+	<body>
+	<div class='noise-overlay'></div>
+  <div class='grid-bg'></div>
+
+    <nav class='navbar' role='navigation' aria-label='Main navigation'>
+        <div class="nav-logo">CC</div>
+        <button id="nav-hamburger" class='nav-hamburger' aria-label='Toggle navigation menu' aria-expanded='false'>
+              <span></span><span></span><span></span>
+        </button>
+        <div class='nav-links'>
+              <a href='#about' class='nav-link'>About</a>
+		<a href='#goals' class='nav-link'>Goals</a>
+		<a href='#timeline' class="nav-link">Timeline</a>
+			<a href="/creative-community/resources_page" class="nav-link"
+                  style='color: var(--alert-orange); font-weight: bold; text-shadow: 0 0 5px rgba(255, 62, 175, 0.5);'>Vault</a>
+            <a href='/creative-community/login' class="nav-link">Login</a>
+            <a href='#join' class='nav-link btn-primary-outline'>Join Us</a>
+        </div>
+    </nav>
+
+    <header class='hero' id="home">
+    <div class='hero-content'>
+            <h1 class='hero-title glitch' data-text='Creative Community'>Creative Community</h1>
+          <p class='hero-subtitle'>where pixels meet imagination</p>
+
+	<div class='server-status-badge' style='position: relative; overflow: visible;'>
+                <div style='display: flex; align-items: center;'>
+                  <div class="status-indicator">
+                        <span class="dot offline" id='server-dot'></span>
+						<span class='ping' id="server-ping"></span>
+	</div>
+                      <div class='status-text'
+                          style='display: flex; flex-direction: row; align-items: center; gap: 10px;'>
+                      <span class='sv-ip'
+                            style='display: block; font-size: 1rem; color: #fff;'>minecraft.vvitu.live</span>
+    <button id='server-info-btn' class='btn-primary-outline'
+							style='padding: 4px 8px; font-size: 0.7rem; border-color: var(--primary-cyan); color: var(--primary-cyan); cursor: pointer;'
+	title='Connection Details'>INFO</button>
+					</div>
+                  </div>
+                <div id="server-details-panel" class='neo-card'
+                      style="display: none; position: absolute; top: calc(100% + 15px); left: 0; font-family: var(--font-body); font-size: 0.85rem; color: var(--text-muted); background: rgba(5,5,5,0.95); padding: 15px; border: 2px solid var(--primary-cyan); box-shadow: 6px 6px 0px var(--accent-purple); width: max-content; min-width: 250px; text-align: left; z-index: 50;">
+                    <div style='margin-bottom: 10px;'><strong
+							style="color: #fff; display: block; margin-bottom: 2px;">Server Name:</strong><span
+							style='color: var(--alert-orange);'>Creative Community Realm</span></div>
+	<div style='margin-bottom: 10px;'><strong
+                          style='color: #fff; display: block; margin-bottom: 2px;'>Server Address:</strong><span
+                            style='color: var(--primary-cyan);'>minecraft.vvitu.live</span></div>
+					<div
+                      style='font-size: 0.75rem; color: #10b981; border-top: 1px dashed #333; padding-top: 8px; display: inline-block; width: 100%;'>
+                      Version: Release 1.21.1</div>
+                </div>
+            </div>
+            <div class='hero-ctas'>
+                <a href='/creative-community/signup' class='btn-primary'>Join the chaos</a>
+			<a href='#gallery' class='btn-secondary'>View Gallery</a>
+              </div>
+
+			<div
+				style='margin-top: 20px; display: inline-flex; align-items: center; gap: 12px; background: rgba(0,0,0,0.6); border: 2px solid var(--alert-orange); padding: 12px 24px; box-shadow: 4px 4px 0px var(--alert-orange);'>
+				<svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='var(--alert-orange)'
+                    stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                    <path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path>
+                    <circle cx='12' cy='10' r='3'></circle>
+              </svg>
+                <div style='text-align: left;'>
+					<span
+                        style='font-family: var(--font-header); font-size: 0.6rem; color: var(--alert-orange); display: block; letter-spacing: 2px;'>CURRENT
+                          VENUE</span>
+					<span id='current-venue-display'
+                        style='font-family: var(--font-body); font-size: 1rem; color: #fff; font-weight: bold;'>Loading...</span>
+              </div>
+     </div>
+			<div id='admin-hub-link' style='margin-top: 15px; display: flex; justify-content: center;'></div>
+</div>
+		<div class='shape shape-1'></div>
+	<div class='shape shape-2'></div>
+		<div class='shape shape-3'></div>
+      </header>
+<div class='marquee-container'>
+        <div class="marquee-text">
+            /// LEARN THROUGH PLAY /// BUILD THE FUTURE /// COGNITIVE DOMINANCE /// NO DISTRACTIONS /// PURE IMMERSION
+          /// LEARN THROUGH PLAY /// BUILD THE FUTURE /// COGNITIVE DOMINANCE /// NO DISTRACTIONS /// PURE IMMERSION
+              ///
+		</div>
+	</div>
+
+
+	<section class='section gallery-section' id='gallery'>
+		<div class="container">
+            <h2 class='section-title'>Latest Chaos</h2>
+              <div class='masonry-grid' id='photo-gallery'>
+
+            </div>
+        </div>
+    </section>
+    <div></div>
+<section class='section timeline-section' id='timeline'>
+		<div class='container'>
+			<h2 class='section-title'>Activity Log</h2>
+			<div class='timeline-container' id='timeline-container'>
+            </div>
+	</div>
+  </section>
+    <section class='section about-section' id='about'>
+      <div class="container">
+			<h2 class='section-title'>Who are we?</h2>
+	
+<div class='about-grid'>
+				<div class="about-card neo-card">
+                  <h3 class='ac-title'>What we do</h3>
+                  <p style="color: var(--text-muted); line-height: 1.7;">We sit at the intersection of technology,
+						art, and cognitive development. From constructing massive, collaborative software simulations in
+                          Minecraft to researching complex system logic in interactive environments, and running hands-on
+                          creative coding workshops. We actively explore the digital medium to build tangible projects,
+						demystify software design, and prove the academic value of interactive simulations.</p>
+              </div>
+	<div class='about-card neo-card'>
+					<h3 class='ac-title'>Who we are</h3>
+                      <p style='color: var(--text-muted); line-height: 1.7;'>We are a dedicated collective of developers,
+                          designers, hardware researchers, and digital architects at VVITU. We aren't just passive
+    consumers of technology; we are the creators. Bonded by a shared passion for pushing the
+                        absolute limits of UI/UX design, interactive media, and cognitive science, we are building the
+                        definitive digital culture on campus.</p>
+				</div>
+
+<div class="about-card neo-card">
+					<h3 class="ac-title">When we meet</h3>
+					<p style='color: var(--text-muted); line-height: 1.7;'>We synchronize our schedules and log off to
+                          meet face-to-face every single time there's a designated club session on Fridays. These
+                          high-energy offline academic meetups are where the magic actually happens: intense whiteboard
+                        brainstorming, server administration, systems architecture planning, and pure unfiltered
+                      collaboration.</p>
+                </div>
+            </div>
+		</div>
+    </section>
+
+      <section class='section'
+		style='background: var(--bg-surface); border-top: var(--border-thick); border-bottom: var(--border-thick); padding: var(--space-xxl) 0;'>
+        <div class='container'>
+          <h2 class='section-title glitch' data-text='Core Divisions'>Core Divisions</h2>
+            <div
+	style='display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-l);'>
+
+    
+  <div class="neo-card image-hover"
+                    style='border-color: var(--primary-cyan); box-shadow: 8px 8px 0px var(--primary-cyan);'>
+					<svg width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='var(--primary-cyan)'
+						stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-bottom: 20px;'>
+                        <rect x='2' y='6' width='20' height='12' rx='2' ry="2"></rect>
+                        <path d='M6 12h4'></path>
+						<path d='M8 10v4'></path>
+                        <path d='M15 11v.01'></path>
+                      <path d='M18 13v.01'></path>
+                    </svg>
+                    <h3
+                        style='color: var(--primary-cyan); font-family: var(--font-header); margin-bottom: 15px; font-size: 1rem; line-height: 1.4;'>
+                        Competitive Esports</h3>
+                    <p style='color: var(--text-muted); line-height: 1.6; font-size: 0.95rem;'>High-stakes tournaments
+                        and tactical scrims. Competitive environments build absolute resilience, sophisticated team
+                        coordination, clear communication under pressure, and split-second tactical decision-making.</p>
+                </div>
+	<div class='neo-card image-hover'
+                  style='border-color: var(--alert-orange); box-shadow: 8px 8px 0px var(--alert-orange);'>
+					<svg width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='var(--alert-orange)'
+                          stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-bottom: 20px;'>
+						<path
+							d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'>
+                        </path>
+                        <polyline points='3.27 6.96 12 12.01 20.73 6.96'></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+				</svg>
+                      <h3
+                        style="color: var(--alert-orange); font-family: var(--font-header); margin-bottom: 15px; font-size: 1rem; line-height: 1.4;">
+                        Minecraft Architecture</h3>
+                      <p style='color: var(--text-muted); line-height: 1.6; font-size: 0.95rem;'>Collaborative 3D design
+    and Redstone engineering. We use Minecraft as a literal sandbox to foster boundless creativity,
+                        teach complex boolean logic, large-scale urban planning, and intricate resource management.</p>
+				</div>
+            <div class='neo-card image-hover'
+                        style='border-color: var(--accent-purple); box-shadow: 8px 8px 0px var(--accent-purple);'>
+                      <svg width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='var(--accent-purple)'
+                      stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-bottom: 20px;'>
+                        <rect x='4' y='4' width='16' height="16" rx='2' ry='2'></rect>
+						<rect x='9' y='9' width='6' height='6'></rect>
+						<line x1="9" y1="1" x2="9" y2="4"></line>
+	<line x1="15" y1="1" x2="15" y2="4"></line>
+						<line x1="9" y1="20" x2="9" y2="23"></line>
+                      <line x1="15" y1="20" x2="15" y2="23"></line>
+                      <line x1="20" y1="9" x2="23" y2="9"></line>
+						<line x1="20" y1="14" x2="23" y2="14"></line>
+                      <line x1="1" y1="9" x2="4" y2="9"></line>
+						<line x1="1" y1="14" x2="4" y2="14"></line>
+                    </svg>
+                      <h3
+                        style='color: var(--accent-purple); font-family: var(--font-header); margin-bottom: 15px; font-size: 1rem; line-height: 1.4;'>
+						Game Design & Logic</h3>
+                    <p style='color: var(--text-muted); line-height: 1.6; font-size: 0.95rem;'>Deconstructing
+                        interaction algorithms, behavioral psychology, and UX loops. We study what makes digital
+        environments deeply engaging and how to apply those psychological frameworks to standard
+                        software systems.</p>
+				</div>
+            </div>
+        </div>
+   </section>
+
+	<section class='section' style="padding: var(--space-xxl) 0;">
+        <div class='container'>
+          <h2 class='section-title glitch' data-text='Skill Transfer Matrix' style='margin-bottom: 15px;'>Skill
+				Transfer Matrix</h2>
+          <p
+				style='color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin: 0 auto var(--space-xl); text-align: center; line-height: 1.7;'>
+                  Every hour in-game develops a measurable real-world competency. Here's the direct mapping.</p>
+			<div class='skill-map-grid'>
+                <div class='skill-card' style='border-color: var(--alert-orange);'>
+				<svg width='28' height='28' viewBox='0 0 24 24' fill='none' stroke="var(--alert-orange)"
+                        stroke-width='2'>
+                          <path
+                            d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'>
+						</path>
+					</svg>
+					<span class='skill-label'>Minecraft Redstone</span>
+                </div>
+                <div class="skill-arrow">→</div>
+<div class='skill-card' style='border-color: var(--alert-orange); background: rgba(251,146,60,0.08);'>
+					<span class='skill-label' style="color: var(--alert-orange);">Circuit Design & Boolean Logic</span>
+            </div>
+
+	<div class="skill-card" style='border-color: #10b981;'>
+                    <svg width='28' height='28' viewBox='0 0 24 24' fill='none' stroke="#10b981" stroke-width='2'>
+                          <path d='M12 2L2 7l10 5 10-5-10-5z'></path>
+                      <path d='M2 17l10 5 10-5'></path>
+						<path d='M2 12l10 5 10-5'></path>
+                  </svg>
+                      <span class='skill-label'>Resource Management</span>
+                </div>
+
+  <div class='skill-arrow'>→</div>
+                <div class="skill-card" style="border-color: #10b981; background: rgba(16,185,129,0.05);">
+                    <span class='skill-label' style='color: #10b981;'>Project Budgeting & Logistics</span>
+                </div>
+
+                <div class='skill-card' style='border-color: var(--accent-purple);'>
+                    <svg width="28" height='28' viewBox='0 0 24 24' fill='none' stroke='var(--accent-purple)'
+                        stroke-width="2">
+                          <rect x='3' y='3' width='18' height="18" rx='2' ry='2'></rect>
+                      <line x1="3" y1="9" x2="21" y2="9"></line>
+	<line x1="9" y1="21" x2="9" y2="9"></line>
+                  </svg>
+                    <span class='skill-label'>Level Design</span>
+                </div>
+              <div class='skill-arrow'>→</div>
+<div class="skill-card" style='border-color: var(--accent-purple); background: rgba(168,85,247,0.05);'>
+					<span class='skill-label' style='color: var(--accent-purple);'>UI/UX & Spatial Architecture</span>
+                </div>
+				<div class='skill-card' style='border-color: #f43f5e;'>
+                      <svg width='28' height="28" viewBox='0 0 24 24' fill="none" stroke='#f43f5e' stroke-width='2'>
+                      <path d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'></path>
+                      <circle cx='9' cy='7' r='4'></circle>
+                        <path d='M23 21v-2a4 4 0 0 0-3-3.87'></path>
+                    <path d='M16 3.13a4 4 0 0 1 0 7.75'></path>
+					</svg>
+                    <span class='skill-label'>Guild Leadership</span>
+                </div>
+				<div class='skill-arrow'>→</div>
+	<div class="skill-card" style='border-color: #f43f5e; background: rgba(244,63,94,0.05);'>
+					<span class='skill-label' style='color: #f43f5e;'>Team Management & Delegation</span>
+                </div>
+                <div class='skill-card' style='border-color: #06b6d4;'>
+                    <svg width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='#06b6d4' stroke-width='2'>
+					<polyline points='16 18 22 12 16 6'></polyline>
+                        <polyline points='8 6 2 12 8 18'></polyline>
+                    </svg>
+                    <span class="skill-label">Modding & Scripting</span>
+                </div>
+                <div class='skill-arrow'>→</div>
+				<div class='skill-card' style="border-color: #06b6d4; background: rgba(6,182,212,0.05);">
+                  <span class='skill-label' style="color: #06b6d4;">Software Engineering Fundamentals</span>
+				</div>
+                </div>
+      </div>
+      </section>
+	<section class='section goals-section' id='goals'>
+      <div class='container'>
+
+    
+<div class='neo-box'
+                style='border: var(--border-thick); padding: var(--space-xl); background: var(--bg-dark-blue); box-shadow: var(--shadow-solid);'>
+				<h2 class='section-title fade-up-element'
+                  style='color: var(--alert-orange); text-shadow: 3px 3px 0px #000;'>The Science Behind Interactive
+					Learning</h2>
+              <p
+                    style='font-size: 1.15rem; color: var(--text-main); margin-bottom: var(--space-s); max-width: 850px; line-height: 1.8;'>
+					Decades of peer-reviewed research from institutions like MIT, Stanford, and the University of
+                    Rochester have established that interactive digital environments are among the most effective tools
+					for developing cognitive ability, spatial intelligence, and collaborative problem-solving.</p>
+				<p
+                    style='font-size: 1.05rem; color: var(--text-muted); margin-bottom: var(--space-l); max-width: 850px; line-height: 1.8;'>
+                      This is the cognitive science that drives our methodology. Every activity we run is grounded in
+					these principles.</p>
+                  <div
+                    style='display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-l); margin-top: var(--space-xl);'>
+
+
+	<div class='neo-card'
+						style='border-color: var(--primary-cyan); box-shadow: 4px 4px 0px var(--primary-cyan);'>
+    <h3
+                              style='color: var(--primary-cyan); margin-bottom: 10px; font-family: var(--font-header); font-size: 0.9rem;'>
+         1. The Science of Play</h3>
+						<p style='font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;'>Play is an
+	evolutionary tool for
+                          learning complex skills. Peer-reviewed studies published in the <em>Archives of Surgery</em>
+                          show that surgeons who engage with interactive simulations are
+                            <strong>27% faster</strong> and make <strong>37% fewer errors</strong> in advanced
+                            laparoscopic procedures than those who don't.
+                        </p>
+                      </div>
+                <div class='neo-card'
+                        style='border-color: var(--accent-purple); box-shadow: 4px 4px 0px var(--accent-purple);'>
+                        <h3
+                            style="color: var(--accent-purple); margin-bottom: 10px; font-family: var(--font-header); font-size: 0.9rem;">
+                            2. Flow & The Goldilocks Zone</h3>
+					<p style='font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;'>Interactive
+                            simulations algorithmically adapt to the
+                            participant's skill level. By keeping challenges "just right" — neither too easy nor too
+                            hard — they
+                          trigger a psychological <em>Flow State</em> (Csikszentmihalyi, 1990) where absolute
+                              immersion and peak cognitive
+                            performance are achieved.</p>
+                    </div>
+   <div class='neo-card'
+						style='border-color: var(--alert-orange); box-shadow: 4px 4px 0px var(--alert-orange);'>
+                        <h3
+                              style='color: var(--alert-orange); margin-bottom: 10px; font-family: var(--font-header); font-size: 0.9rem;'>
+                            3. Mastery & Intrinsic Motivation</h3>
+                      <p style='font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;'>Through carefully
+                              structured intrinsic
+                          rewards and variable reinforcement schedules, interactive environments cultivate the deep
+							motivation required to
+                            dedicate the 10,000 hours of deliberate practice necessary for true mastery in any
+                              discipline (Ericsson, 1993).</p>
+                      </div>
+	<div class='neo-card' style='border-color: #10b981; box-shadow: 4px 4px 0px #10b981;'>
+                      <h3
+                            style='color: #10b981; margin-bottom: 10px; font-family: var(--font-header); font-size: 0.9rem;'>
+                              4. Multi-Channel Engagement</h3>
+                        <p style='font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;'>Unlike passive
+							lectures, interactive simulations engage
+         the entire brain simultaneously. By combining visual, auditory, spatial, and narrative
+                        processing channels, they leverage <em>Dual-Coding Theory</em> (Paivio, 1986) to increase
+	information
+                            retention by up to <strong>89%</strong> versus traditional instruction methods.</p>
+				</div>
+
+
+	
+  <div class='neo-card' style="border-color: #f43f5e; box-shadow: 4px 4px 0px #f43f5e;">
+                          <h3
+                              style='color: #f43f5e; margin-bottom: 10px; font-family: var(--font-header); font-size: 0.9rem;'>
+                              5. The Ultimate Digital Sandbox</h3>
+						<p style='font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;'>We leverage platforms
+     like Minecraft to
+                            teach real-world engineering skills. Members master Boolean logic through Redstone
+							circuitry, sustainable urban
+                            planning through community builds, and resilient problem-solving by iterating in an
+                            environment where failure carries zero real-world consequences — the ideal laboratory for
+                            experimentation.</p>
+	</div>
+					<div class='neo-card' style='border-color: #06b6d4; box-shadow: 4px 4px 0px #06b6d4;'>
+                        <h3
+                              style="color: #06b6d4; margin-bottom: 10px; font-family: var(--font-header); font-size: 0.9rem;">
+							6. Collaborative Intelligence</h3>
+	<p style='font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;'>Multiplayer
+                            environments require real-time communication, conflict resolution, and distributed
+                            leadership — the same competencies taught in MBA programs. Research from <em>Brigham Young
+								University</em> found that teams who played cooperative simulations together showed a
+							<strong>20% increase</strong> in workplace productivity.
+                        </p>
+                    </div>
+                  </div>
+
+                <div
+					style="margin-top: var(--space-xl); padding-top: var(--space-l); border-top: 2px dashed rgba(255,255,255,0.15);">
+       <p
+                          style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.8; font-style: italic; max-width: 900px;">
+						Sources: Rosser et al., <em>Archives of Surgery</em> (2007) · Csikszentmihalyi, <em>Flow: The
+							Psychology of Optimal Experience</em> (1990) · Ericsson et al., <em>Psychological
+         Review</em> (1993) · Paivio, <em>Mental Representations: A Dual Coding Approach</em> (1986)
+						· Keith et al., <em>Brigham Young University</em> (2008) · Bavelier & Green, <em>University of
+                            Rochester</em> (2012)
+       </p>
+                </div>
+          </div>
+        </div>
+	</section>
+	<section class='section esports-section' id='esports'>
+      <div class="container">
+		<h2 class='section-title'>Featured Topic: Esports</h2>
+ <div class='neo-card'
+              style='border: var(--border-thick); padding: var(--space-xl); background: var(--bg-surface); margin-bottom: var(--space-xxl);'>
+                  <h3
+                  style='font-family: var(--font-header); color: var(--primary-cyan); font-size: 1.2rem; margin-bottom: var(--space-m); line-height: 1.4;'>
+                    Cognitive Agility & Team Dynamics (The Esports Paradigm)
+                </h3>
+				<p
+   style='color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--space-m);'>
+                    Esports is rapidly emerging as a foundational platform for cognitive development and high-stakes
+                    collaboration. Competitive gaming requires processing vast amounts of concurrent auditory and visual
+                  data, complex spatial reasoning, and real-time execution that rivals traditional athletics.</p>
+              <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;">It extends far beyond simple
+                      reaction times. Elite competitive environments simulate high-pressure tactical scenarios, forging
+                  unparalleled communication skills, absolute resilience under stress, and the ability to dynamically
+					adapt team strategies in microseconds.</p>
+              </div>
+        </div>
+	</section>
+
+
+
+	<section class='section' style='padding: var(--space-xxl) 0; border-top: var(--border-thick);'>
+        <div class="container">
+			<h2 class='section-title' style="margin-bottom: var(--space-l);">Why Join Creative Community?</h2>
+			<p
+				style='color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin: 0 auto var(--space-xl); text-align: center; line-height: 1.7;'>
+                Whether you're a competitive gamer, a casual builder, or someone who's never touched a game — there's a
+                  place for you here.</p>
+	<div
+				style='display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-l);'>
+				<div class='neo-card'
+					style='border-color: var(--accent-purple); box-shadow: 5px 5px 0px var(--accent-purple);'>
+                      <svg width="36" height='36' viewBox='0 0 24 24' fill='none' stroke='var(--accent-purple)'
+						stroke-width='2' style='margin-bottom: 15px;'>
+                        <path d='M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z'></path>
+                      <path d='M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z'></path>
+                      </svg>
+                    <h3
+						style='color: var(--accent-purple); font-family: var(--font-header); font-size: 0.85rem; margin-bottom: 10px;'>
+	Portfolio Projects</h3>
+                    <p style='color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;'>Build real, showcasable
+						work — Minecraft worlds, design mockups, coded prototypes — that proves your skills to employers
+                        and admissions boards.</p>
+	</div>
+                <div class='neo-card'
+                      style="border-color: var(--primary-cyan); box-shadow: 5px 5px 0px var(--primary-cyan);">
+                      <svg width='36' height='36' viewBox="0 0 24 24" fill="none" stroke='var(--primary-cyan)'
+						stroke-width='2' style='margin-bottom: 15px;'>
+                          <path
+							d='M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z'>
+                        </path>
+                  </svg>
+					<h3
+                        style='color: var(--primary-cyan); font-family: var(--font-header); font-size: 0.85rem; margin-bottom: 10px;'>
+						Learn Real Tools</h3>
+					<p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Get hands-on with Figma,
+                        Blender, game engines, server administration, and creative coding — tools used by actual
+                        industry professionals.</p>
+              </div>
+                <div class='neo-card'
+                    style='border-color: var(--alert-orange); box-shadow: 5px 5px 0px var(--alert-orange);'>
+       <svg width='36' height='36' viewBox='0 0 24 24' fill='none' stroke='var(--alert-orange)'
+                      stroke-width='2' style='margin-bottom: 15px;'>
+                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 9 7 12 7s5-3 7.5-3a2.5 2.5 0 0 1 0 5H18"></path>
+						<path d='M18 15h1.5a2.5 2.5 0 0 0 0-5H18'></path>
+                      <path d="M6 15H4.5a2.5 2.5 0 0 0 0 5H6"></path>
+                        <line x1="6" y1="9" x2="6" y2="15"></line>
+        <line x1="18" y1="9" x2="18" y2="15"></line>
+                      <line x1="6" y1="15" x2="18" y2="15"></line>
+						<line x1="6" y1="20" x2="18" y2="20"></line>
+                  </svg>
+                      <h3
+                        style='color: var(--alert-orange); font-family: var(--font-header); font-size: 0.85rem; margin-bottom: 10px;'>
+						Leadership Opportunities</h3>
+                      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Lead teams, manage
+                        events, coordinate server infrastructure, and develop the organizational skills that separate
+                      students from professionals.</p>
+	</div>
+
+    
+<div class='neo-card' style='border-color: #10b981; box-shadow: 5px 5px 0px #10b981;'>
+					<svg width='36' height='36' viewBox='0 0 24 24' fill='none' stroke="#10b981" stroke-width="2"
+						style='margin-bottom: 15px;'>
+                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                          <circle cx='9' cy='7' r='4'></circle>
+						<path d='M23 21v-2a4 4 0 0 0-3-3.87'></path>
+						<path d='M16 3.13a4 4 0 0 1 0 7.75'></path>
+                    </svg>
+                      <h3
+                        style="color: #10b981; font-family: var(--font-header); font-size: 0.85rem; margin-bottom: 10px;">
+                      Find Your People</h3>
+                    <p style='color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;'>Connect with like-minded
+						creators, developers, and strategists. The best projects are built by teams who genuinely enjoy
+						working together.</p>
+      </div>
+				<div class='neo-card' style='border-color: #f43f5e; box-shadow: 5px 5px 0px #f43f5e;'>
+                    <svg width='36' height='36' viewBox="0 0 24 24" fill='none' stroke="#f43f5e" stroke-width='2'
+						style='margin-bottom: 15px;'>
+                        <path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path>
+                        <polyline points='14 2 14 8 20 8'></polyline>
+                          <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points='10 9 9 9 8 9'></polyline>
+                    </svg>
+                    <h3
+						style='color: #f43f5e; font-family: var(--font-header); font-size: 0.85rem; margin-bottom: 10px;'>
+                            Resume Value</h3>
+                    <p style='color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;'>Club leadership,
+                          organized events, and collaborative projects are the exact differentiators that make your resume
+	stand out in a stack of identical applications.</p>
+                </div>
+
+				<div class='neo-card' style='border-color: #06b6d4; box-shadow: 5px 5px 0px #06b6d4;'>
+                    <svg width='36' height='36' viewBox='0 0 24 24' fill='none' stroke='#06b6d4' stroke-width='2'
+                          style='margin-bottom: 15px;'>
+                        <rect x='2' y='2' width='20' height='20' rx='5' ry="5"></rect>
+                          <path d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'></path>
+						<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+					</svg>
+					<h3
+                        style='color: #06b6d4; font-family: var(--font-header); font-size: 0.85rem; margin-bottom: 10px;'>
+                          Server Access</h3>
+                      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Get exclusive access to
+                        our dedicated Minecraft realm — a persistent, collaborative world where your builds become part
+                        of a living digital campus.</p>
+                </div>
+            </div>
+		</div>
+    </section>
+
+      <section class='section join-section' id='join'>
+      <div class='container neo-box cta-container neo-card'
+	style="padding: var(--space-xxl) var(--space-xl); margin-bottom: var(--space-xxl);">
+            <h2 class='cta-title glitch' data-text='Ready to Level Up?'
+                  style='font-size: 3rem; margin-bottom: var(--space-m);'>Ready to Level Up?</h2>
+			<p class='cta-desc'
+				style='max-width: 700px; margin: 0 auto var(--space-xl); font-size: 1.1rem; color: var(--text-muted);'>
+	Stay in the loop with the latest chaos, announcements, and offline meetups. Join our Instagram to drop
+                  your suggestions and help push the club forward!</p>
+
+              <div class='cta-buttons'>
+				<a href='https://www.instagram.com/creativecommunity_vvitu?igsh=MXc2dmU0N2kwbXQyYw=='
+                    class='btn-primary' target='_blank' style='padding: 15px 30px; font-size: 1.1rem;'>Join our
+                    Instagram</a>
+				<a href='/creative-community/signup' class='btn-secondary'
+                      style='padding: 15px 30px; font-size: 1.1rem;'>Sign Up
+					Now</a>
+			</div>
+        </div>
+    </section>
+  <div id='lightbox-modal'
+		style='display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(5, 5, 5, 0.95); align-items: center; justify-content: center;'>
+          <span id="lightbox-close"
+			style='position: absolute; top: 30px; right: 50px; color: var(--primary-cyan); font-size: 50px; font-weight: bold; cursor: pointer; font-family: var(--font-header); text-shadow: 4px 4px 0px var(--accent-purple); transition: transform 0.2s;'>&times;</span>
+		<img id='lightbox-img'
+            style='max-width: 85%; max-height: 85%; border: 4px solid var(--primary-cyan); box-shadow: 12px 12px 0px var(--accent-purple);'
+			src=''>
+    </div>
+
+
+      <footer class='footer' role='contentinfo'>
+    
+<div class='container footer-content'
+            style='display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-xl); align-items: start;'>
+			<div>
+
+
+<div class='logotype' style='margin-bottom: 10px;'>Creative Community</div>
+				<p style='color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; max-width: 280px;'>Where
+                  pixels meet purpose. A student-led organization at VVITU exploring the intersection of gaming,
+                  design, and technology.</p>
+            </div>
+			<div style='text-align: center;'>
+				<h4
+					style='font-family: var(--font-header); font-size: 0.7rem; color: var(--primary-cyan); margin-bottom: 15px; letter-spacing: 2px;'>
+                      QUICK LINKS</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <a href='#about' style='color: var(--text-muted); font-size: 0.9rem;'>About</a>
+                    <a href='#goals' style='color: var(--text-muted); font-size: 0.9rem;'>Research</a>
+                    <a href='#timeline' style='color: var(--text-muted); font-size: 0.9rem;'>Activity Log</a>
+                    <a href='/creative-community/signup' style='color: var(--text-muted); font-size: 0.9rem;'>Sign
+                        Up</a>
+                </div>
+          </div>
+            <div style='text-align: right;'>
+				<h4
+                      style='font-family: var(--font-header); font-size: 0.7rem; color: var(--alert-orange); margin-bottom: 15px; letter-spacing: 2px;'>
+                    CONNECT</h4>
+  <div class='social-links'
+                    style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
+					<a href='https://www.instagram.com/creativecommunity_vvitu?igsh=MXc2dmU0N2kwbXQyYw=='
+                      target='_blank' style='color: var(--text-muted); font-size: 0.9rem;'>Instagram</a>
+                </div>
+            </div>
+        </div>
+<div
+            style='border-top: 1px solid rgba(255,255,255,0.08); margin-top: var(--space-xl); padding-top: var(--space-m); text-align: center;'>
+			<p style='color: var(--text-muted); font-size: 0.8rem;'>© 2026 Creative Community @ VVITU — Built with
+              controlled chaos.</p>
+        </div>
+  </footer>
+	<script src="/creative-community/static/data/weekly-activity.js?v=1774418661"></script>
+    <script src="/creative-community/static/data/projects.js?v=1774418661"></script>
+    <script src="/creative-community/static/js/main.js?v=1774418661"></script>
+	<script src="/creative-community/static/js/fluid-cursor.js?v=1774418661"></script>
+	<script>
+          document.addEventListener('DOMContentLoaded', () => {
+              const userStr = localStorage.getItem('cc_logged_in_user');
+			if (userStr) {
+                  const user = JSON.parse(userStr);
+	const pfps = JSON.parse(localStorage.getItem('cc_pfps') || '{}');
+				const userPfp = pfps[user.clgEmail] || 'https://via.placeholder.com/150/0a0a0a/00fff9?text=?';
+                  const navLogo = document.querySelector('.nav-logo');
+                if (navLogo) {
+                    navLogo.innerHTML = `<a href='/creative-community/profile'><img src='${userPfp}' alt='Profile' style='width: 45px; height: 45px; border-radius: 50%; border: 3px solid var(--primary-cyan); object-fit: cover; box-shadow: 4px 4px 0px var(--accent-purple);'></a>`;
+					navLogo.classList.remove('glitch');
+					navLogo.style.padding = '0';
+				navLogo.style.border = 'none';
+					navLogo.style.background = 'transparent';
+                    navLogo.style.boxShadow = 'none';
+                }
+
+      const loginLink = Array.from(document.querySelectorAll('.nav-link')).find(el => el.textContent.trim() === 'Login');
+	if (loginLink) {
+                  loginLink.href = '/creative-community/profile';
+                    loginLink.textContent = 'Profile';
+              }
+              }
+          });
+    </script>
+</body>
+</html>

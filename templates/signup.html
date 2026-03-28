@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+	<html lang='en'>
+	<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Member Registration - CC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+    <link
+		href='https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;600;700&display=swap'
+          rel='stylesheet'>
+<link rel='stylesheet' href="/creative-community/static/css/main.css?v=1774418661">
+    <style>
+        body {
+            background-color: #050505;
+              margin: 0;
+              overflow-x: hidden;
+		}
+	.login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+			justify-content: center;
+			padding: var(--space-xl);
+			position: relative;
+			z-index: 10;
+      }
+        .login-box {
+            width: 100%;
+	max-width: 500px;
+		background: rgba(8, 8, 8, 0.95);
+            padding: var(--space-xxl);
+            border: 4px solid var(--primary-cyan);
+			border-radius: 4px;
+              box-shadow: 0 0 20px rgba(0, 255, 249, 0.2), 12px 12px 0px var(--accent-purple);
+            position: relative;
+			animation: crt-turn-on 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+			margin-top: 100px;
+        }
+        @keyframes crt-turn-on {
+			0% {
+				transform: scale(1, 0.05);
+				opacity: 0;
+			}
+			50% {
+                transform: scale(1, 0.05);
+              opacity: 1;
+		}
+          100% {
+                transform: scale(1, 1);
+                opacity: 1;
+			}
+		}
+
+		.login-box::before {
+            content: "NEW MEMBER REGISTRATION";
+            position: absolute;
+			top: -15px;
+            left: 20px;
+		background: #000;
+          padding: 0 10px;
+            color: var(--primary-cyan);
+			font-family: var(--font-header);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+          animation: pulse-alert 2s infinite;
+		}
+	@keyframes pulse-alert {
+              0%,
+	100% {
+				color: var(--primary-cyan);
+                text-shadow: none;
+			}
+	50% {
+				color: #fff;
+				text-shadow: 0 0 8px var(--primary-cyan);
+            }
+        }
+          .form-group label {
+			display: block;
+          margin-bottom: 8px;
+			color: var(--primary-cyan);
+          font-family: var(--font-header);
+            font-size: 0.9rem;
+              line-height: 1.4;
+        }
+		.form-group input {
+          width: 100%;
+			padding: 15px;
+          background: rgba(0, 255, 249, 0.05);
+			border: 3px solid var(--border-subtle);
+			color: #fff;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        .form-group input:focus {
+          outline: none;
+            border-color: var(--primary-cyan);
+          background: rgba(0, 255, 249, 0.1);
+              box-shadow: 0 0 15px rgba(0, 255, 249, 0.3), inset 0 0 10px rgba(0, 255, 249, 0.1);
+        }
+	.hacker-terminal {
+			background: #000;
+            border: 2px solid #333;
+			padding: 15px;
+            margin-top: 25px;
+        font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+              color: #10b981;
+            text-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+			max-height: 120px;
+            overflow: hidden;
+              position: relative;
+        }
+
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+			50% {
+				opacity: 0;
+			}
+        }
+
+          .scanline {
+ position: absolute;
+            top: 0;
+            left: 0;
+			width: 100%;
+            height: 10px;
+          background: rgba(0, 255, 249, 0.2);
+			opacity: 0.6;
+            animation: scan 4s linear infinite;
+			pointer-events: none;
+            z-index: 5;
+		}
+          @keyframes scan {
+            0% {
+	top: -10%;
+            }
+            100% {
+                top: 110%;
+            }
+      }
+	</style>
+	<link rel='icon' type="image/png" href="/creative-community/static/favicon.png">
+	</head>
+<body>
+      <div class='noise-overlay'></div>
+	<div class='grid-bg'></div>
+    <div class='shape shape-1'
+		style='top: 15%; left: 10%; width: 100px; height: 100px; background: var(--alert-orange); box-shadow: 0 0 40px var(--alert-orange);'>
+  </div>
+      <div class='shape shape-2'
+      style='top: 75%; right: 15%; width: 150px; height: 150px; background: var(--primary-cyan); box-shadow: 0 0 40px var(--primary-cyan);'>
+      </div>
+<div class='shape shape-3'
+        style='top: 45%; right: 35%; width: 120px; height: 120px; background: var(--accent-purple); box-shadow: 0 0 40px var(--accent-purple);'>
+	</div>
+  <nav class="navbar"
+		style='position: absolute; top:0; width: 100%; z-index: 100; border-bottom: 1px solid rgba(0,255,249,0.2);'>
+		<div class='nav-logo glitch' data-text='CC'>CC</div>
+      <button id="nav-hamburger" class="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      <div class='nav-links'>
+            <a href='/creative-community/' class="nav-link btn-primary-outline"
+				style='border-color: var(--primary-cyan); color: var(--primary-cyan);'>Cancel</a>
+      </div>
+	</nav>
+
+
+<div class='login-wrapper'>
+
+<div class='login-box image-hover'>
+			<div class='scanline'></div>
+
+            <h1 class="glitch" data-text='JOIN COMMUNITY'
+                style="color: #fff; font-family: var(--font-header); font-size: 2.2rem; margin-bottom: var(--space-s); line-height: 1.2; text-shadow: 3px 3px 0px var(--alert-orange);">
+                  JOIN COMMUNITY</h1>
+	<p style='color: var(--text-muted); margin-bottom: var(--space-xl); font-size: 1.0rem;'>Register your
+				college credentials to join the network.</p>
+            <form id='signup-form'>
+                  <div class='form-group' style='margin-bottom: var(--space-m);'>
+                    <label>Full Name</label>
+	<input type='text' id='reg-name' required autocomplete='off'>
+                </div>
+              <div class='form-group' style='margin-bottom: var(--space-m);'>
+                    <label>College Roll No.</label>
+                      <input type='text' id='reg-roll' required autocomplete='off'>
+				</div>
+                <div class="form-group" style='margin-bottom: var(--space-m);'>
+                  <label>College Email (@vvit.net, @vvitu.net or @vvitu.ac.in)</label>
+					<input type='email' id='reg-email' placeholder='student@vvit.net'
+						pattern='^.+@([vV][vV][iI][tT]\.[nN][eE][tT]|[vV][vV][iI][tT][uU]\.[nN][eE][tT]|[vV][vV][iI][tT][uU]\.[aA][cC]\.[iI][nN])$'
+                        title='Email must end in @vvit.net, @vvitu.net or @vvitu.ac.in' required autocomplete='off'>
+				</div>
+                <div class='form-group' style='margin-bottom: var(--space-m);'>
+					<label>Create Password</label>
+                    <input type='password' id='reg-password' placeholder='••••••••' required
+                        autocomplete='new-password'>
+                </div>
+				<div class='form-group' style='margin-bottom: var(--space-l);'>
+	<label>Phone Number (Optional)</label>
+                    <input type='text' id='reg-phone' autocomplete='off'>
+                </div>
+                <button type='submit' class='btn-primary'
+                  style='width: 100%; font-size: 1.1rem; padding: 15px; border-width: 3px; background: #fff; color: #000; box-shadow: 6px 6px 0px var(--primary-cyan); transition: all 0.2s;'>REGISTER</button>
+          </form>
+			<div style='margin-top: var(--space-l); text-align: center;'>
+      <a href='/creative-community/login'
+                      style='color: var(--alert-orange); text-decoration: underline; font-family: var(--font-header); font-size: 0.9rem;'>Already
+					registered? Login here.</a>
+            </div>
+			<p id='error-msg'
+	style='color: #000; background: var(--alert-orange); padding: 10px; border: 2px solid #fff; margin-top: var(--space-m); display: none; font-family: var(--font-header); font-size: 0.75rem; box-shadow: 4px 4px 0px #fff;'>
+			</p>
+    
+	<div class="hacker-terminal" id='terminal-out'>
+				<span style='color: var(--text-muted);'>Creative Community System</span><br>
+                  > Port open for new member.<span class='cursor-blink'>_</span>
+              </div>
+        </div>
+    </div>
+    <script src="/creative-community/static/js/fluid-cursor.js?v=1774418661"></script>
+        <script>
+        document.getElementById('signup-form').addEventListener('submit', (e) => {
+     e.preventDefault();
+			const name = document.getElementById('reg-name').value.trim();
+                const rollNo = document.getElementById('reg-roll').value.trim();
+			const emailInput = document.getElementById('reg-email');
+     const email = emailInput.value.trim().toLowerCase();
+              const password = document.getElementById('reg-password').value;
+			const phone = document.getElementById('reg-phone').value.trim();
+
+              const errorMsg = document.getElementById('error-msg');
+	const termOut = document.getElementById('terminal-out');
+ const btn = document.querySelector('button[type="submit"]');
+			if (!email.endsWith('@vvit.net') && !email.endsWith('@vvitu.net') && !email.endsWith('@vvitu.ac.in')) {
+				errorMsg.textContent = "Only @vvit.net, @vvitu.net or @vvitu.ac.in emails are allowed.";
+                errorMsg.style.display = 'block';
+				return;
+            }
+			let members = [];
+            const saved = localStorage.getItem('cc_members');
+              if (saved) {
+                members = JSON.parse(saved);
+              } else if (typeof initialMembers !== 'undefined') {
+                members = [...initialMembers];
+	}
+            // Check if already registered
+              if (members.find(m => m.clgEmail.toLowerCase() === email)) {
+                  errorMsg.textContent = "Email is already registered. Please login.";
+                  errorMsg.style.display = 'block';
+                  return;
+              }
+                // Create new member object
+			const newMember = {
+                  id: 'm-' + Date.now(),
+				name: name,
+                  rollNo: rollNo,
+                clgEmail: email,
+              password: password,
+              persEmail: '',
+                phone: phone || 'N/A',
+                  altPhone: ''
+          };
+
+		btn.textContent = "REGISTERING...";
+			btn.style.background = "var(--primary-cyan)";
+              btn.style.boxShadow = "none";
+            btn.style.color = "#000";
+          termOut.innerHTML += `<br>> Transmitting credentials to central server... <span class="cursor-blink">_</span>`;
+
+          fetch('/creative-community/api/members/register', {
+                    method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newMember)
+          })
+				.then(res => res.json())
+                .then(result => {
+                    if (result.success) {
+                        // Still keep a local copy for immediate context if needed, but the server is source of truth
+                        localStorage.setItem('cc_logged_in_user', JSON.stringify(result.member));
+
+						errorMsg.style.display = 'none';
+    btn.textContent = "SUCCESS";
+						btn.style.background = "#10b981";
+                        termOut.innerHTML += `<br>> Welcome to the club, ${name}.<br>> Loading profile...`;
+                      setTimeout(() => {
+							window.location.href = '/creative-community/profile';
+                          }, 1000);
+					} else {
+                        btn.textContent = "REGISTER";
+						btn.style.background = "#fff";
+						errorMsg.textContent = result.error || "Server rejected registration.";
+                        errorMsg.style.display = 'block';
+					}
+	})
+				.catch(err => {
+                    btn.textContent = "RETRY";
+                  errorMsg.textContent = "Connection Error: Failed to reach sync server.";
+                    errorMsg.style.display = 'block';
+                  console.error(err);
+				});
+            });
+      </script>
+	</body>
+</html>

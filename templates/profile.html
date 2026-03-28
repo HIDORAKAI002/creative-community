@@ -1,0 +1,334 @@
+	<!DOCTYPE html>
+	<html lang='en'>
+<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<title>Member Profile - CC</title>
+	<link rel='preconnect' href='https://fonts.googleapis.com'>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+	<link
+href='https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;600;700&display=swap'
+        rel='stylesheet'>
+    <link rel='stylesheet' href="/creative-community/static/css/main.css?v=1774418661">
+<style>
+      body {
+          background-color: #050505;
+            margin: 0;
+     overflow-x: hidden;
+	}
+        .profile-container {
+              padding-top: 120px;
+              max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+          z-index: 10;
+      }
+
+        .profile-card {
+		border-color: var(--primary-cyan);
+            box-shadow: 8px 8px 0px var(--primary-cyan);
+			background: rgba(8, 8, 8, 0.95);
+              animation: crt-turn-on 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            padding: var(--space-xl);
+              position: relative;
+        }
+
+		@keyframes crt-turn-on {
+          0% {
+                transform: scale(1, 0.05);
+                opacity: 0;
+              }
+
+			50% {
+			transform: scale(1, 0.05);
+            opacity: 1;
+              }
+			100% {
+  transform: scale(1, 1);
+				opacity: 1;
+            }
+        }
+		.profile-header {
+            display: flex;
+              gap: var(--space-xl);
+			align-items: center;
+            margin-bottom: var(--space-xl);
+            flex-wrap: wrap;
+		}
+        .pfp-wrapper {
+			width: 150px;
+            height: 150px;
+			border: 4px solid var(--accent-purple);
+			box-shadow: 6px 6px 0px var(--accent-purple);
+            background: #1a1a1a;
+			position: relative;
+            transition: all 0.3s ease;
+	}
+        .pfp-wrapper:hover {
+ transform: scale(1.05);
+          box-shadow: 8px 8px 0px #fff;
+        }
+	.pfp-wrapper img {
+            width: 100%;
+			height: 100%;
+          object-fit: cover;
+          }
+
+        .form-group label {
+            display: block;
+			margin-bottom: 8px;
+     color: var(--primary-cyan);
+			font-family: var(--font-header);
+            font-size: 0.8rem;
+          line-height: 1.4;
+        }
+		.form-group input {
+            padding: 12px;
+            background: rgba(0, 255, 249, 0.05);
+			border: 2px solid var(--border-subtle);
+            color: #fff;
+        font-family: var(--font-body);
+        }
+          .form-group input:focus {
+            outline: none;
+              border-color: var(--primary-cyan);
+            background: rgba(0, 255, 249, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 249, 0.3), inset 0 0 10px rgba(0, 255, 249, 0.1);
+      }
+        .details-list {
+              list-style: none;
+            padding: 0;
+            color: var(--text-muted);
+            line-height: 2.2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+      .details-list strong {
+	color: #fff;
+        }
+        @media (max-width: 600px) {
+            .details-list {
+      grid-template-columns: 1fr;
+              }
+            .profile-header {
+                  text-align: center;
+                    justify-content: center;
+            }
+		}
+	</style>
+	<link rel='icon' type='image/png' href="/creative-community/static/favicon.png">
+	</head>
+
+<body>
+
+
+<div class='noise-overlay'></div>
+    <div class='grid-bg'></div>
+    <nav class='navbar' style='border-bottom: 1px solid rgba(0,255,249,0.2);'>
+  <div class='nav-logo glitch' data-text="CC">CC</div>
+      <button id="nav-hamburger" class='nav-hamburger' aria-label="Toggle navigation menu" aria-expanded='false'>
+          <span></span><span></span><span></span>
+      </button>
+	<div class='nav-links'>
+			<a href='/creative-community/' class='nav-link'>Home</a>
+              <a href='#' class='nav-link' id='logout-btn'
+                style='color: var(--alert-orange); font-weight: bold;'>Logout</a>
+		</div>
+    </nav>
+    <div class='container profile-container'>
+		<h1 class='section-title glitch' data-text='MEMBER HUB'
+              style='color: var(--accent-purple); text-shadow: 4px 4px 0px #fff; font-size: 2.8rem; margin-bottom: var(--space-l); text-align:center;'>
+			MEMBER HUB</h1>
+      <div class='neo-card profile-card'>
+          <div
+				style='position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary-cyan), var(--accent-purple), var(--alert-orange));'>
+          </div>
+            <div class="profile-header">
+				<div class='pfp-wrapper'>
+					<img id='user-pfp' src='https://via.placeholder.com/150/0a0a0a/00fff9?text=?' alt='Profile Picture'>
+              </div>
+				<div>
+   <h2 id='user-name'
+						style='font-family: var(--font-header); font-size: 1.8rem; color: #fff; margin-bottom: 5px; text-transform: uppercase; display: flex; align-items: center; gap: 10px;'>
+                        Loading...</h2>
+
+                    <p
+						style="color: var(--primary-cyan); font-family: var(--font-header); font-size: 0.85rem; margin-bottom: 5px; line-height:1.5;">
+                      Roll: <span id="user-roll" style='color: #fff; font-family: var(--font-body);'>--</span></p>
+					<p
+                        style='color: var(--primary-cyan); font-family: var(--font-header); font-size: 0.85rem; margin-bottom: 5px; line-height:1.5;'>
+						Tag: <span id='user-email' style='color: #fff; font-family: var(--font-body);'>--</span></p>
+                </div>
+            </div>
+            <div class='form-group'
+                style='margin-bottom: var(--space-l); background: #000; padding: var(--space-m); border: 2px solid #333;'>
+	<label>Upload Profile Picture</label>
+                <div style='display: flex; gap: 10px; flex-wrap: wrap; align-items: center;'>
+                    <input type='file' id='pfp-upload' accept='image/*'
+                      style="flex: 1; min-width: 200px; padding: 10px; background: rgba(0, 255, 249, 0.05); color: #fff; cursor: pointer;"
+                      title='Select an image to auto-upload'>
+				</div>
+                  <p id='pfp-msg'
+                    style="color: #10b981; display: none; margin-top: 10px; font-size: 0.85rem; font-family: 'Courier New', monospace;">
+					Profile picture updated successfully!</p>
+              </div>
+            <div style='border-top: 2px dashed #333; padding-top: var(--space-l); margin-top: var(--space-l);'>
+                  <div
+                    style='display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-m);'>
+                    <h3
+                        style='margin: 0; font-family: var(--font-header); font-size: 1rem; color: var(--alert-orange);'>
+                        <span style='color: #fff;'>//</span> REGISTERED DATA
+                    </h3>
+                    <button id="edit-info-btn" class='btn-primary-outline'
+						style="padding: 5px 15px; font-size: 0.8rem; border-color: var(--primary-cyan); color: var(--primary-cyan);">+
+                      ADD INFO</button>
+              </div>
+              <ul class='details-list'>
+                  <li>Personal Email: <strong id='user-pers'>--</strong></li>
+					<li>Alt Phone: <strong id='user-alt'>--</strong></li>
+                    <li>Phone No: <strong id='user-phone'>--</strong></li>
+				</ul>
+      <div id="edit-info-form"
+                    style="display: none; background: #050505; padding: var(--space-m); border: 2px solid #333; margin-top: var(--space-m);">
+                      <div class='form-group' style='margin-bottom: 10px;'>
+                        <label>Personal Email</label>
+					<input type='email' id='edit-pers' style='padding: 10px;'>
+	</div>
+					<div class='form-group' style='margin-bottom: 10px;'>
+                        <label>Phone No</label>
+                      <input type="text" id='edit-phone' style='padding: 10px;'>
+                    </div>
+
+<div class='form-group' style='margin-bottom: 15px;'>
+						<label>Alt Phone</label>
+                        <input type='text' id='edit-alt' style="padding: 10px;">
+					</div>
+                  <button id='save-info-btn' class='btn-primary' style='width: 100%; padding: 12px;'>SAVE
+                        DATA</button>
+				</div>
+            </div>
+	</div>
+    </div>
+
+    <script src="/creative-community/static/js/fluid-cursor.js?v=1774418661"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('nav-hamburger');
+			if (hamburger) {
+				hamburger.addEventListener('click', function () {
+                      this.classList.toggle('is-active');
+					document.querySelector('.nav-links').classList.toggle('nav-open');
+                });
+          }
+	const userStr = localStorage.getItem('cc_logged_in_user');
+              if (!userStr) {
+				window.location.href = '/creative-community/login';
+              return;
+              }
+
+			const user = JSON.parse(userStr);
+
+          const pfps = JSON.parse(localStorage.getItem('cc_pfps') || '{}');
+			const userPfpNav = pfps[user.clgEmail] || 'https://via.placeholder.com/150/0a0a0a/00fff9?text=?';
+			const navLogo = document.querySelector('.nav-logo');
+            if (navLogo) {
+				navLogo.innerHTML = `<a href="/creative-community/profile"><img src='${userPfpNav}' alt='Profile' style='width: 45px; height: 45px; border-radius: 50%; border: 3px solid var(--primary-cyan); object-fit: cover; box-shadow: 4px 4px 0px var(--accent-purple);'></a>`;
+				navLogo.classList.remove('glitch');
+				navLogo.style.padding = '0';
+                navLogo.style.border = 'none';
+                  navLogo.style.background = 'transparent';
+				navLogo.style.boxShadow = 'none';
+            }
+
+            const verifiedBadge = user.isVerified ? `<span style='font-size: 1.2rem;' title='Verified Member'>🛡️✔️</span>` : '';
+              document.getElementById('user-name').innerHTML = `${user.name} ${verifiedBadge}`;
+            document.getElementById('user-roll').textContent = user.rollNo;
+            document.getElementById('user-email').textContent = user.clgEmail;
+          document.getElementById('user-pers').textContent = user.persEmail || 'Not Provided';
+			document.getElementById('user-phone').textContent = user.phone;
+            document.getElementById('user-alt').textContent = user.altPhone || 'Not Provided';
+			if (user.pfp) {
+			document.getElementById('user-pfp').src = user.pfp;
+			}
+
+            document.getElementById('pfp-upload').addEventListener('change', async (e) => {
+                const fileInput = e.target;
+				if (fileInput.files && fileInput.files[0]) {
+                    const statusMsg = document.getElementById('pfp-msg');
+					statusMsg.textContent = 'Uploading picture...';
+					statusMsg.style.color = 'var(--alert-orange)';
+                      statusMsg.style.display = 'block';
+                    const formData = new FormData();
+                    formData.append('pfp', fileInput.files[0]);
+					formData.append('email', user.clgEmail);
+                    try {
+                          const response = await fetch('/creative-community/upload_pfp', {
+							method: 'POST',
+                          body: formData
+                          });
+						const data = await response.json();
+
+                      if (data.success) {
+							const newPfpUrl = data.url;
+                              user.pfp = newPfpUrl;
+                            localStorage.setItem('cc_logged_in_user', JSON.stringify(user));
+                            document.getElementById('user-pfp').src = newPfpUrl;
+
+							const msg = document.getElementById('pfp-msg');
+							msg.textContent = 'Profile picture updated successfully!';
+							msg.style.color = '#10b981';
+							msg.style.display = 'block';
+                            setTimeout(() => msg.style.display = 'none', 3000);
+						} else {
+                            alert('Upload failed: ' + data.error);
+                        }
+					} catch (err) {
+                        console.error(err);
+                      alert('Upload error occurred.');
+					}
+                }
+            });
+			document.getElementById('edit-info-btn').addEventListener('click', () => {
+  document.getElementById('edit-info-form').style.display = 'block';
+                document.getElementById('edit-pers').value = user.persEmail || '';
+                  document.getElementById('edit-phone').value = user.phone === 'N/A' || user.phone === 'Not Provided' ? '' : (user.phone || '');
+              document.getElementById('edit-alt').value = user.altPhone || '';
+            });
+			document.getElementById('save-info-btn').addEventListener('click', async () => {
+                const updatedUser = {
+					...user,
+                    persEmail: document.getElementById('edit-pers').value.trim(),
+					phone: document.getElementById('edit-phone').value.trim() || 'Not Provided',
+                  altPhone: document.getElementById('edit-alt').value.trim()
+                };
+				try {
+					const res = await fetch('/creative-community/api/members/update', {
+						method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify(updatedUser)
+                    });
+                    const result = await res.json();
+					if (result.success) {
+                        localStorage.setItem('cc_logged_in_user', JSON.stringify(updatedUser));
+	location.reload(); // Refresh to show new data
+                } else {
+						alert(result.error);
+					}
+				} catch (e) {
+                    alert("Sync failed.");
+                }
+          });
+            document.getElementById('logout-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('cc_logged_in_user');
+				window.location.href = '/creative-community/';
+			});
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>CC Admin Panel</title>
+  <link rel='preconnect' href='https://fonts.googleapis.com'>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+  <link
+    href='https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;600;700&display=swap'
+    rel='stylesheet'>
+  <link rel='stylesheet' href="/creative-community/static/css/main.css?v=1774418661">
+  <style>
+    .admin-header {
+      padding: var(--space-xl) 0;
+      text-align: center;
+      border-bottom: 2px solid var(--border-subtle);
+      background: rgba(10, 10, 10, 0.9);
+      margin-bottom: var(--space-xl);
+    }
+
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-l) var(--space-xxxl);
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: var(--space-xl);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-m);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: var(--space-s);
+      color: var(--primary-cyan);
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      background: #000;
+      border: 2px solid var(--border-subtle);
+      color: #fff;
+      font-family: var(--font-body);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-cyan);
+      box-shadow: 4px 4px 0px var(--accent-purple);
+    }
+
+    .member-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-m);
+    }
+
+    .member-card {
+      padding: var(--space-m);
+      position: relative;
+    }
+
+    .member-card p {
+      line-height: 1.4;
+    }
+
+    .member-actions {
+      margin-top: var(--space-m);
+      display: flex;
+      gap: var(--space-s);
+    }
+
+    .member-actions button {
+      padding: 4px 8px;
+      font-size: 0.7rem;
+    }
+
+    @media(max-width: 768px) {
+      .admin-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel=' icon' type='image/png' href="/creative-community/static/favicon.png">
+</head>
+
+<body>
+  <div class='noise-overlay'></div>
+  <div class="grid-bg"></div>
+  <header class="admin-header">
+    <h1 class='hero-title glitch' data-text="Admin Area" style='font-size: 2.5rem;'>Admin Area</h1>
+    <p class='hero-subtitle' style='font-size: 1rem; margin-top: 10px;'>Member Management System</p>
+    <div style='margin-top: 20px;'>
+      <a href='/creative-community/' class='btn-secondary'>Back to Main Site</a>
+      <button id='export-btn' class='btn-primary'>Export Members Data</button>
+    </div>
+  </header>
+
+
+  <div class='admin-container'>
+    <div class='neo-card'
+      style="grid-column: 1 / -1; border-color: var(--primary-cyan); background: rgba(0, 255, 249, 0.05);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div>
+          <h3 class='ac-title' style='margin-bottom: 5px;'>ATTENDANCE GATE</h3>
+          <p style='font-size: 0.8rem; color: var(--text-muted);'>Open a 5-minute window for users to
+            check-in.</p>
+        </div>
+        <div style='display: flex; align-items: center; gap: 20px;'>
+          <div id='attendance-timer'
+            style='font-family: var(--font-header); color: var(--alert-orange); font-size: 1.2rem; display: none;'>
+            05:00</div>
+          <button id='open-gate-btn' class='btn-primary' style='background: var(--primary-cyan); color: #000;'>OPEN
+            ATTENDANCE GATE (5 MINS)</button>
+        </div>
+      </div>
+    </div>
+
+    <div class='neo-card' style="grid-column: 1 / -1; border-color: var(--accent-purple);">
+      <h3 class='ac-title' style="color: var(--accent-purple); margin-bottom: 20px;">ATTENDANCE REPORT & REMARKS
+      </h3>
+      <div style='overflow-x: auto;'>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--accent-purple); color: var(--accent-purple);">
+              <th style='padding: 10px;'>Member Email</th>
+              <th style='padding: 10px;'>Join Date</th>
+              <th style='padding: 10px;'>Sessions</th>
+              <th style='padding: 10px;'>%</th>
+              <th style='padding: 10px;'>Weekly Remarks (Private)</th>
+              <th style="padding: 10px;">Action</th>
+            </tr>
+          </thead>
+          <tbody id='attendance-report-body'>
+
+            <tr>
+              <td colspan='6' style='padding: 20px; text-align: center;'>Loading attendance data...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class='neo-card'
+      style='margin-bottom: var(--space-xl); border-color: var(--alert-orange); grid-column: 1 / -1;'>
+      <h3 class='ac-title' style='color: var(--alert-orange); margin-bottom: 10px;'>CLUB VENUE</h3>
+      <div style="display: flex; gap: 10px; align-items: stretch;">
+        <input type='text' id='admin-venue-input' placeholder='e.g. Block A, Lab 402'
+          style="flex: 1; padding: 10px; background: #050505; border: 2px solid var(--alert-orange); color: #fff; font-family: var(--font-body);">
+        <button id='save-venue-btn' class='btn-primary'
+          style="padding: 10px 20px; font-size: 0.9rem; background: var(--alert-orange); color: #000; box-shadow: 4px 4px 0px #fff; border-color: #fff;">UPDATE</button>
+      </div>
+      <p id='venue-msg'
+        style="color: #10b981; font-size: 0.8rem; margin-top: 10px; font-family: 'Courier New', monospace; display: none;">
+        Venue updated successfully!</p>
+    </div>
+
+    <div class='neo-card' style='margin-bottom: var(--space-xl); border-color: #ff003c; grid-column: 1 / -1;'>
+      <h3 class='ac-title' style='color: #ff003c; margin-bottom: 20px;'>SECURITY LOGS & BLOCKED DEVICES</h3>
+      <div style='overflow-x: auto;'>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid #ff003c; color: #ff003c;">
+              <th style='padding: 10px;'>Device ID</th>
+              <th style='padding: 10px;'>IP Address</th>
+              <th style='padding: 10px;'>Device Name (User Agent)</th>
+              <th style='padding: 10px;'>Time & Date Blocked</th>
+              <th style='padding: 10px;'>Status</th>
+              <th style="padding: 10px;">Action</th>
+            </tr>
+          </thead>
+          <tbody id='blocked-devices-body'>
+            <tr>
+              <td colspan='5' style='padding: 20px; text-align: center;'>Loading security logs...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class='neo-card' style='align-self: start;'>
+      <h3 class='ac-title' id='form-title'>Add New Member</h3>
+      <form id='member-form'>
+        <input type='hidden' id='edit-id'>
+        <div class='form-group'>
+          <label>Full Name</label>
+          <input type='text' id="m-name" required>
+        </div>
+
+        <div class='form-group'>
+          <label>College Roll No.</label>
+          <input type='text' id="m-roll" required>
+        </div>
+        <div class='form-group'>
+          <label>College Email ID</label>
+          <input type='email' id='m-clg-email' pattern='.+@(vvit\.net|vvitu\.net|vvitu\.ac\.in)$'
+            title='Email must end in @vvit.net, @vvitu.net or @vvitu.ac.in' required>
+        </div>
+
+        <div class='form-group'>
+          <label>Personal Email</label>
+          <input type='email' id='m-pers-email'>
+        </div>
+        <div class='form-group'>
+          <label>Account Password</label>
+          <input type='text' id='m-password' required placeholder='Set a secure password'>
+        </div>
+        <div class='form-group'>
+          <label>Phone No.</label>
+          <input type='text' id='m-phone' required>
+        </div>
+        <div class='form-group'>
+          <label>Alt. Phone No.</label>
+          <input type="text" id='m-alt-phone'>
+        </div>
+        <div class='form-group' style='display: flex; align-items: center; gap: 10px; margin-top: 15px;'>
+          <input type='checkbox' id="m-verified" style='width: auto; transform: scale(1.5);'>
+          <label for='m-verified' style="margin: 0; cursor: pointer;">Verified Club Member Badge</label>
+        </div>
+        <div class='form-group' id='admin-toggle-group'
+          style='display: none; align-items: center; gap: 10px; margin-top: 15px; background: rgba(255, 0, 0, 0.1); padding: 10px; border: 1px dashed var(--alert-orange);'>
+          <input type="checkbox" id='m-admin' style='width: auto; transform: scale(1.5);'>
+          <label for='m-admin'
+            style='margin: 0; cursor: pointer; color: var(--alert-orange); font-weight: bold; letter-spacing: 1px;'>GRANT
+            ADMIN ACCESS</label>
+        </div>
+        <div style='margin-top: var(--space-l);'>
+          <button type='submit' class='btn-primary' style="width: 100%;">Save Member</button>
+          <button type='button' id='cancel-btn' class='btn-secondary'
+            style='width: 100%; margin-top: 10px; display: none;'>Cancel Edit</button>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <h2 class='section-title' style='margin-bottom: var(--space-m);'>Directory</h2>
+      <div class='member-list' id='members-container'>
+      </div>
+    </div>
+  </div>
+
+  <script src="/creative-community/static/data/members.js?v=1774418661"></script>
+  <script src=' /creative-community/static/js/admin.js'></script>
+  <script src="/creative-community/static/js/fluid-cursor.js?v=1774418661"></script>
+</body>
+
+</html>
